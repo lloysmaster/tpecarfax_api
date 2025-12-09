@@ -41,3 +41,27 @@ La ruta de listado (`GET /`) permite refinar la búsqueda mediante parámetros d
 #### Ejemplo de Consulta Completa:
 ```http
 GET /tpecarfax_api/vehicles?sort=year&order=desc&page=1&limit=10
+
+#### 📩 Estructuras de Datos (Payloads)
+
+
+###1. Crear Vehículo (POST /)
+Se requiere un cuerpo JSON con el id_user obligatoriamente para la validación de la existencia del usuario.
+
+{
+  "id_user": 15,
+  "brand": "Toyota",
+  "model": "Hilux",
+  "year": 2023,
+  "price": 45000.00,
+  "color": "Blanco"
+}
+
+###2. Actualizar Vehículo (PUT /{ID})
+Se envía un cuerpo JSON solo con los campos que se desean modificar.
+{
+  "price": 46500.00,
+  "is_sold": true
+}
+
+
