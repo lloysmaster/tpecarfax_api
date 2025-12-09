@@ -1,5 +1,6 @@
 <?php
 require_once './app/models/vehicle.model.php';
+require_once './app/models/user.model.php';
 
 class VehicleApiController {
     private $model;
@@ -9,7 +10,7 @@ class VehicleApiController {
         header("Content-Type: application/json");
     }
 
-    // ACEPTA $request y $response
+    
     public function getAll($request, $response) { 
         $sort = $_GET['sort'] ?? null;
         $order = $_GET['order'] ?? 'ASC';
@@ -22,7 +23,7 @@ class VehicleApiController {
             return;
         }
 
-        // PAGINACIÓN
+        
         $page = isset($_GET['page']) ? (int)$_GET['page'] : null;
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
 
@@ -63,9 +64,18 @@ class VehicleApiController {
     public function create($request, $response) {
         $data = json_decode(file_get_contents("php://input"));
 
-        if (!$data) {
+        if (!$data || !isset($data->id_user)) { 
             http_response_code(400);
-            echo json_encode(["error" => "JSON inválido"]);
+            echo json_encode(["error" => "JSON inválido o falta id_user"]);
+            return;
+        }
+    
+        $userModel = new UserModel(); 
+        $userExists = $userModel->get($data->id_user); 
+
+        if (!$userExists) {
+            http_response_code(404);
+            echo json_encode(["error" => "El usuario con id: {$data->id_user} no existe."]);
             return;
         }
 
@@ -110,6 +120,6 @@ class VehicleApiController {
             return;
         }
         $this->model->delete($id);
-        http_response_code(204); // No Content
+        http_response_code(204);
     }
 }
