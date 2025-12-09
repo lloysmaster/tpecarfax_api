@@ -9,41 +9,45 @@ class VehicleApiController {
         header("Content-Type: application/json");
     }
 
-    public function getAll() {
-    $sort = $_GET['sort'] ?? null;
-    $order = $_GET['order'] ?? 'ASC';
+    // ACEPTA $request y $response
+    public function getAll($request, $response) { 
+        $sort = $_GET['sort'] ?? null;
+        $order = $_GET['order'] ?? 'ASC';
 
-    $validSorts = ['price', 'year', 'brand'];
+        $validSorts = ['price', 'year', 'brand'];
 
-    if ($sort && !in_array($sort, $validSorts)) {
-        http_response_code(400);
-        echo json_encode(["error" => "Campo de orden inválido"]);
-        return;
-    }
-
-    // PAGINACIÓN
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : null;
-    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
-
-    if ($page !== null && $limit !== null) {
-        if ($page < 1 || $limit < 1) {
+        if ($sort && !in_array($sort, $validSorts)) {
             http_response_code(400);
-            echo json_encode(["error" => "page y limit deben ser mayores a 0"]);
+            echo json_encode(["error" => "Campo de orden inválido"]);
             return;
         }
-        $offset = ($page - 1) * $limit;
-    } else {
-        $offset = null;
+
+        // PAGINACIÓN
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : null;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+
+        if ($page !== null && $limit !== null) {
+            if ($page < 1 || $limit < 1) {
+                http_response_code(400);
+                echo json_encode(["error" => "page y limit deben ser mayores a 0"]);
+                return;
+            }
+            $offset = ($page - 1) * $limit;
+        } else {
+            $offset = null;
+        }
+
+        $vehicles = $this->model->getAll($sort, $order, $limit, $offset);
+
+        http_response_code(200);
+        echo json_encode($vehicles);
     }
 
-    $vehicles = $this->model->getAll($sort, $order, $limit, $offset);
+    
+    public function getOne($request, $response) {
+        $id = $request->params->ID;
 
-    http_response_code(200);
-    echo json_encode($vehicles);
-}
-
-    public function getOne($id) {
-        $vehicle = $this->model->get($id);
+        $vehicle = $this->model->get($id); 
 
         if (!$vehicle) {
             http_response_code(404);
@@ -55,7 +59,8 @@ class VehicleApiController {
         echo json_encode($vehicle);
     }
 
-    public function create() {
+
+    public function create($request, $response) {
         $data = json_decode(file_get_contents("php://input"));
 
         if (!$data) {
@@ -70,7 +75,9 @@ class VehicleApiController {
         echo json_encode(["message" => "Vehículo creado", "id" => $id]);
     }
 
-    public function update($id) {
+
+    public function update($request, $response) {
+        $id = $request->params->ID;
         $data = json_decode(file_get_contents("php://input"));
 
         if (!$data) {
@@ -90,5 +97,19 @@ class VehicleApiController {
 
         http_response_code(200);
         echo json_encode(["message" => "Vehículo actualizado"]);
+    }
+    
+
+    public function delete($request, $response) {
+        $id = $request->params->ID;
+
+        $exists = $this->model->get($id);
+        if (!$exists) {
+            http_response_code(404);
+            echo json_encode(["error" => "No existe el vehículo a borrar"]);
+            return;
+        }
+        $this->model->delete($id);
+        http_response_code(204); // No Content
     }
 }

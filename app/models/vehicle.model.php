@@ -6,7 +6,6 @@ class VehicleModel {
     private $db;
 
     public function __construct() {
-        // Usamos la clase Database para obtener la conexión
         $this->db = Database::connect();
     }
 
