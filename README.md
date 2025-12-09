@@ -41,7 +41,7 @@ La ruta de listado (`GET /`) permite refinar la búsqueda mediante parámetros d
 #### Ejemplo de Consulta Completa:
 ```http
 GET /tpecarfax_api/vehicles?sort=year&order=desc&page=1&limit=10
-
+```
 #### 📩 Estructuras de Datos (Payloads)
 
 
