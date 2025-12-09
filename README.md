@@ -9,7 +9,7 @@ Este `README` documenta la API de vehículos, que simula una base de datos de ti
 | **Integrantes** | Facundo Alejo Barrio (alejo\_facundo@yahoo.com), Leonardo Ariel Kowerdink (leonardokowerdink@gmail.com) |
 | **Módulo** | TPECARFAX API |
 | **Endpoint Base** | `http://localhost/tpecarfax_api/vehicles` |
-
+| **los commits reflejan quien hiso algo, revisen por favor** |
 -----
 
 ## 🛣️ Rutas de la API (CRUD para `/vehicles`)
