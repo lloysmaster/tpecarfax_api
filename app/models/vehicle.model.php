@@ -21,7 +21,6 @@ class VehicleModel {
         }
 
         $query = $this->db->prepare($sql);
-
         if ($limit !== null && $offset !== null) {
             $query->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
             $query->bindValue(':offset', (int)$offset, PDO::PARAM_INT);

@@ -1,4 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ api_router.php?resource=$1 [L]
+RewriteRule ^(.*)$ api_router.php?resource=$1 [L,QSA]

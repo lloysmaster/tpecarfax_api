@@ -21,7 +21,7 @@ $router->addRoute('vehicles/:ID', 'PUT', 'VehicleApiController', 'update');
 
 // DELETE /vehicles/:id Borrar un vehículo por ID
 // Es buena práctica incluir el DELETE.
-$router->addRoute('vehicles/:ID', 'DELETE', 'VehicleApiController', 'delete');
+//$router->addRoute('vehicles/:ID', 'DELETE', 'VehicleApiController', 'delete');//no funcional
 
 
 

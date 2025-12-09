@@ -13,16 +13,23 @@ class VehicleApiController {
     
     public function getAll($request, $response) { 
         $sort = $_GET['sort'] ?? null;
-        $order = $_GET['order'] ?? 'ASC';
+        $order = strtoupper($_GET['order'] ?? 'ASC');
 
         $validSorts = ['price', 'year', 'brand'];
+        $validOrders = ['ASC', 'DESC'];
+
 
         if ($sort && !in_array($sort, $validSorts)) {
             http_response_code(400);
             echo json_encode(["error" => "Campo de orden inválido"]);
             return;
         }
-
+        
+        if (!in_array($order, $validOrders)) {
+            http_response_code(400);
+            echo json_encode(["error" => "Dirección de orden inválida. Use 'asc' o 'desc'."]);
+            return;
+        }
         
         $page = isset($_GET['page']) ? (int)$_GET['page'] : null;
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
