@@ -54,14 +54,14 @@ Se requiere un cuerpo JSON con el id_user obligatoriamente para la validación d
   "model": "Hilux",
   "year": 2023,
   "price": 45000.00,
-  "color": "Blanco"
+  "id_category": 2
 }
 
 ###2. Actualizar Vehículo (PUT /{ID})
 Se envía un cuerpo JSON solo con los campos que se desean modificar.
 {
   "price": 46500.00,
-  "is_sold": true
+  "brand": ford
 }
 
 
