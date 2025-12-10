@@ -92,7 +92,7 @@ La ruta de listado (`GET /`) permite refinar la búsqueda, el ordenamiento y la 
 GET /tpecarfax_api/vehicles?sort=year&order=desc&page=1&limit=10
 ```
 
-### 📦 Estructura de Respuesta de Listado (Sin Metadata)
+### 📦 Estructura de Respuesta de Listado
 
 La ruta `GET /` **devuelve directamente un array JSON** que contiene los objetos de los vehículos solicitados, respetando los límites y la paginación si se especifican los Query Parameters.
 
