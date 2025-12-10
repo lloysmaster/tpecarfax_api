@@ -94,7 +94,7 @@ GET /tpecarfax_api/vehicles?sort=year&order=desc&page=1&limit=10
 
 ### 📦 Estructura de Respuesta de Listado (Sin Metadata)
 
-La ruta `GET /` **devuelve directamente un array JSON** que contiene los objetos de los vehículos solicitados, respetando los límites y la paginación si se especifican los Query Parameters. **No incluye metadata de paginación** (como `total_items` o `total_pages`).
+La ruta `GET /` **devuelve directamente un array JSON** que contiene los objetos de los vehículos solicitados, respetando los límites y la paginación si se especifican los Query Parameters.
 
 #### Ejemplo de Estructura de Respuesta:
 
